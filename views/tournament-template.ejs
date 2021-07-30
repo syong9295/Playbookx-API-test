@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Tournament Bracket</title>
+    <style>
+      .main-container {
+        display: -webkit-flex;
+        -webkit-justify-content: space-between;
+        margin: 5rem;
+        border: 1px solid black;
+      }
+      .stage-container {
+        border: 1px solid red;
+      }
+      .full-round-container {
+        margin: 2rem 0;
+      }
+      .half-round-container {
+        display: -webkit-flex;
+        -webkit-flex-direction: row;
+        -webkit-align-content: stretch;
+        border: 0.1px solid #494b50;
+      }
+      .player-info {
+        display: -webkit-flex;
+        -webkit-justify-content: flex-start;
+        -webkit-align-items: center;
+        background-color: #57595e;
+        width: 15rem;
+      }
+      .player-score-lose {
+        display: -webkit-flex;
+        -webkit-justify-content: center;
+        -webkit-align-items: center;
+        background-color: #83858a;
+        width: 3rem;
+        margin: 0;
+      }
+      .player-score-win {
+        display: -webkit-flex;
+        -webkit-justify-content: center;
+        -webkit-align-items: center;
+        background-color: #fc8028;
+        width: 3rem;
+        margin: 0;
+      }
+      .profile-img {
+        height: 2.2rem;
+        width: 2.2rem;
+        border-radius: 50%;
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+      }
+      .player-name {
+        color: #fff;
+        text-shadow: 1.5px 1.5px #000;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main-container">
+      <div class="stage-container">
+        <% foundTournaments.forEach(tournament => { %>
+
+          <div class="full-round-container">
+
+            <div class="half-round-container">
+              <div class="player-info">
+                <img class="profile-img" src="<%= tournament.playerInfo[0].profileImg %>" alt="image" />
+                <p class="player-name"><%= tournament.playerInfo[0].name %></p>
+              </div>
+              <p class="player-score-lose"><%= tournament.playerInfo[0].score %></p>
+            </div>
+
+            <div class="half-round-container">
+              <div class="player-info">
+                <img class="profile-img" src="<%= tournament.playerInfo[1].profileImg %>" alt="image" />
+                <p class="player-name"><%= tournament.playerInfo[1].name %></p>
+              </div>
+              <p class="player-score-win"><%= tournament.playerInfo[1].score %></p>
+            </div>
+
+          </div>
+
+        <% }) %>
+      </div>
+      <div class="inner-container">
+        <p>i am span2</p>
+      </div>
+      <div class="inner-container">
+        <p>i am span3</p>
+      </div>
+    </div>
+  </body>
+</html>

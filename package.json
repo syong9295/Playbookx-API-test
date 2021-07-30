@@ -1,0 +1,27 @@
+{
+  "name": "playbookx-api-test",
+  "version": "1.0.0",
+  "description": "api test for playbookx",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/syong9295/Playbookx-API-test.git"
+  },
+  "author": "loh sheng yong",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/syong9295/Playbookx-API-test/issues"
+  },
+  "homepage": "https://github.com/syong9295/Playbookx-API-test#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "html-pdf": "^3.0.1",
+    "mongoose": "^5.13.4",
+    "mongoose-unique-validator": "^2.0.3"
+  }
+}
