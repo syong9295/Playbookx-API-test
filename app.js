@@ -1,5 +1,4 @@
 const express = require("express");
-const bodyParser = require("body-parser");
 const ejs = require("ejs");
 const pdf = require("html-pdf");
 const path = require("path");
@@ -9,16 +8,11 @@ const {
   Schema
 } = mongoose;
 
+// binds Express module to app
 const app = express();
 
 // tell our app to use EJS as its view engine (template engine)
 app.set('view engine', 'ejs');
-
-// to parse request
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
-app.use(express.static('/public'));
 
 // create new database called 'tournamentDB' if it does not already exist.
 mongoose.connect('mongodb://localhost:27017/tournamentDB', {
@@ -61,10 +55,10 @@ const tournamentSchema = new mongoose.Schema({
 // apply uniqueValidator plugin on tournamentSchema
 tournamentSchema.plugin(uniqueValidator);
 
-// create a model and specify the collection
+// create a model and specify the collection name
 const Tournament = mongoose.model("Tournament", tournamentSchema);
 
-// hardcoded data (for testing purpose only)
+// hardcoded, dummy data (for testing purpose only)
 const tournament1 = new Tournament({
   round: 1,
   stage: 1,
@@ -186,16 +180,17 @@ const tournament7 = new Tournament({
 
 const tournamentData = [tournament1, tournament2, tournament3, tournament4, tournament5, tournament6, tournament7];
 
-// Tournament.insertMany(tournamentData, function(err) {
-//   if (err) {
-//     console.log(err);
-//   } else {
-//     console.log("successfully save all data into tournamentDB.");
-//   }
-// });
+Tournament.insertMany(tournamentData, function(err) {
+  if (err) {
+    console.log(err);
+  } else {
+    console.log("successfully save all data into tournamentDB.");
+  }
+});
 
 // fetches all data
 app.get('/tournaments', function(req, res) {
+
    Tournament.find(function(err, foundTournaments) {
      if (err) {
        console.log(err);
@@ -203,10 +198,12 @@ app.get('/tournaments', function(req, res) {
        res.send(foundTournaments);
      }
    });
+
 });
 
 // fetches all data for a specific _id
 app.get('/tournaments/id/:roundId', function(req, res) {
+
   // _id is unique, there should only be 1 returned tournament data.
   Tournament.findById(req.params.roundId, function(err, foundTournament) {
     if (err) {
@@ -215,10 +212,12 @@ app.get('/tournaments/id/:roundId', function(req, res) {
       res.send(foundTournament);
     }
   });
+
 });
 
 // fetches all data by a specific round
 app.get('/tournaments/round/:roundNo', function(req, res) {
+
   Tournament.findOne({round: req.params.roundNo}, function(err, foundTournament) {
     if (err) {
       res.send(err);
@@ -226,10 +225,12 @@ app.get('/tournaments/round/:roundNo', function(req, res) {
       res.send(foundTournament);
     }
   });
+
 });
 
 // fetches all data by a specific stage
 app.get('/tournaments/stage/:stageNo', function(req, res) {
+
   Tournament.find({stage: req.params.stageNo}, function(err, foundTournaments) {
     if (err) {
       res.send(err);
@@ -237,27 +238,16 @@ app.get('/tournaments/stage/:stageNo', function(req, res) {
       res.send(foundTournaments);
     }
   });
+
 });
 
-// ***TO BE DELETED*** TESTING of tournament pdf only
-app.get('/test', function(req, res) {
-  Tournament.find(function(err, foundTournaments) {
-    if (err) {
-      res.send(err);
-    } else {
-      res.render('tournament-template', {foundTournaments: foundTournaments});
-    }
-  });
-});
-
-// send user a pdf containing formatted tournament bracket image
+// send user a pdf containing formatted tournament bracket image based on the dummy data
 app.get('/download', function(req, res) {
-  // fetch all data
+
   Tournament.find(function(err, foundTournaments) {
     if (err) {
       console.log(err);
     } else {
-      // __dirname + '\\views\\tournament-template.ejs'
       ejs.renderFile(path.join(__dirname, './views', 'tournament-template.ejs'), {foundTournaments: foundTournaments}, function (err, data) {
         if (err) {
           res.send(err);
@@ -278,16 +268,7 @@ app.get('/download', function(req, res) {
     }
   });
 
-  // pass all data into a html file for formatting
-
-  // use node-html-pdf (html to pdf converter)
-
-  // send that pdf file to user / client in browser
-})
-
-app.get('/', function(req, res) {
-  res.send('hello world');
-})
+});
 
 app.listen(3000, function() {
   console.log("Server started on port 3000");

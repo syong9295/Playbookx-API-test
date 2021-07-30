@@ -1,158 +1,107 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>Tournament Bracket</title>
-    <!-- the 'html-pdf' package does not support external CSS, so internal CSS is used -->
-    <style>
-      .main-container {
-        display: -webkit-flex;
-        -webkit-justify-content: space-between;
-        margin: 5rem;
-        /* border: 1px solid black; */
-      }
-      .stage-container-leftmost {
-        display: -webkit-flex;
-        -webkit-flex-direction: column;
-        /* border: 1px solid red; */
-      }
-      .stage-container-middle {
-        display: -webkit-flex;
-        -webkit-flex-direction: column;
-        -webkit-justify-content: space-around;
-        /* border: 1px solid red; */
-      }
-      .stage-container-rightmost {
-        display: -webkit-flex;
-        -webkit-flex-direction: column;
-        -webkit-justify-content: center;
-        /* border: 1px solid red; */
-      }
-      .full-round-container {
-        margin: 1.25rem 0;
-      }
-      .half-round-container {
-        display: -webkit-flex;
-        -webkit-flex-direction: row;
-        -webkit-align-content: stretch;
-        border: 1px solid #494b50;
-      }
-      .player-info {
-        display: -webkit-flex;
-        -webkit-justify-content: flex-start;
-        -webkit-align-items: center;
-        background-color: #57595e;
-        width: 17.5rem;
-      }
-      .player-score-lose {
-        display: -webkit-flex;
-        -webkit-justify-content: center;
-        -webkit-align-items: center;
-        background-color: #83858a;
-        width: 3rem;
-        margin: 0;
-      }
-      .player-score-win {
-        display: -webkit-flex;
-        -webkit-justify-content: center;
-        -webkit-align-items: center;
-        background-color: #fc8028;
-        width: 3rem;
-        margin: 0;
-      }
-      .profile-img {
-        height: 2.2rem;
-        width: 2.2rem;
-        border-radius: 50%;
-        padding-left: 0.5rem;
-        padding-right: 0.5rem;
-      }
-      .player-name {
-        color: #fff;
-        text-shadow: 1.5px 1.5px #000;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="main-container">
-      <div class="stage-container-leftmost">
-        <% const filteredTournaments1 = foundTournaments.filter(tournament => tournament.stage === 1) %>
-        <% filteredTournaments1.forEach(tournament => { %>
 
-          <div class="full-round-container">
+<head>
+  <meta charset="utf-8">
+  <title>Tournament Bracket</title>
+  <!-- note: 'html-pdf' package has problem with external CSS, so internal CSS has to be used -->
+  <style>
+    .main-container {
+      display: -webkit-flex;
+      -webkit-justify-content: space-between;
+      margin: 5rem;
+    }
 
-            <div class="half-round-container">
-              <div class="player-info">
-                <img class="profile-img" src="<%= tournament.playerInfo[0].profileImg %>" alt="image" />
-                <p class="player-name"><%= tournament.playerInfo[0].name %></p>
-              </div>
-              <p class="player-score-lose"><%= tournament.playerInfo[0].score %></p>
-            </div>
+    .stage-container-leftmost {
+      display: -webkit-flex;
+      -webkit-flex-direction: column;
+    }
 
-            <div class="half-round-container">
-              <div class="player-info">
-                <img class="profile-img" src="<%= tournament.playerInfo[1].profileImg %>" alt="image" />
-                <p class="player-name"><%= tournament.playerInfo[1].name %></p>
-              </div>
-              <p class="player-score-win"><%= tournament.playerInfo[1].score %></p>
-            </div>
+    .stage-container-middle {
+      display: -webkit-flex;
+      -webkit-flex-direction: column;
+      -webkit-justify-content: space-around;
+    }
 
-          </div>
+    .stage-container-rightmost {
+      display: -webkit-flex;
+      -webkit-flex-direction: column;
+      -webkit-justify-content: center;
+    }
 
-        <% }) %>
-      </div>
-      <div class="stage-container-middle">
-        <% const filteredTournaments2 = foundTournaments.filter(tournament => tournament.stage === 2) %>
-        <% filteredTournaments2.forEach(tournament => { %>
+    .full-round-container {
+      margin: 1.25rem 0;
+    }
 
-          <div class="full-round-container">
+    .half-round-container {
+      display: -webkit-flex;
+      -webkit-flex-direction: row;
+      -webkit-align-content: stretch;
+      border: 1px solid #494b50;
+    }
 
-            <div class="half-round-container">
-              <div class="player-info">
-                <img class="profile-img" src="<%= tournament.playerInfo[0].profileImg %>" alt="image" />
-                <p class="player-name"><%= tournament.playerInfo[0].name %></p>
-              </div>
-              <p class="player-score-lose"><%= tournament.playerInfo[0].score %></p>
-            </div>
+    .player-info {
+      display: -webkit-flex;
+      -webkit-justify-content: flex-start;
+      -webkit-align-items: center;
+      background-color: #57595e;
+      width: 17.5rem;
+    }
 
-            <div class="half-round-container">
-              <div class="player-info">
-                <img class="profile-img" src="<%= tournament.playerInfo[1].profileImg %>" alt="image" />
-                <p class="player-name"><%= tournament.playerInfo[1].name %></p>
-              </div>
-              <p class="player-score-win"><%= tournament.playerInfo[1].score %></p>
-            </div>
+    .player-score-lose {
+      display: -webkit-flex;
+      -webkit-justify-content: center;
+      -webkit-align-items: center;
+      background-color: #83858a;
+      width: 3rem;
+      margin: 0;
+    }
 
-          </div>
+    .player-score-win {
+      display: -webkit-flex;
+      -webkit-justify-content: center;
+      -webkit-align-items: center;
+      background-color: #fc8028;
+      width: 3rem;
+      margin: 0;
+    }
 
-        <% }) %>
-      </div>
-      <div class="stage-container-rightmost">
-        <% const filteredTournaments3 = foundTournaments.filter(tournament => tournament.stage === 3) %>
-        <% filteredTournaments3.forEach(tournament => { %>
+    .profile-img {
+      height: 2.2rem;
+      width: 2.2rem;
+      border-radius: 50%;
+      padding-left: 0.5rem;
+      padding-right: 0.5rem;
+    }
 
-          <div class="full-round-container">
+    .player-name {
+      color: #fff;
+      text-shadow: 1.5px 1.5px #000;
+    }
+  </style>
+</head>
 
-            <div class="half-round-container">
-              <div class="player-info">
-                <img class="profile-img" src="<%= tournament.playerInfo[0].profileImg %>" alt="image" />
-                <p class="player-name"><%= tournament.playerInfo[0].name %></p>
-              </div>
-              <p class="player-score-lose"><%= tournament.playerInfo[0].score %></p>
-            </div>
-
-            <div class="half-round-container">
-              <div class="player-info">
-                <img class="profile-img" src="<%= tournament.playerInfo[1].profileImg %>" alt="image" />
-                <p class="player-name"><%= tournament.playerInfo[1].name %></p>
-              </div>
-              <p class="player-score-win"><%= tournament.playerInfo[1].score %></p>
-            </div>
-
-          </div>
-
-        <% }) %>
-      </div>
+<body>
+  <div class="main-container">
+    <div class="stage-container-leftmost">
+      <% const filteredTournaments1 = foundTournaments.filter(tournament => tournament.stage === 1) %>
+      <% filteredTournaments1.forEach(tournament => { %>
+      <%- include('partials/tournament-tiles', {tournament: tournament}); %>
+      <% }) %>
     </div>
-  </body>
+    <div class="stage-container-middle">
+      <% const filteredTournaments2 = foundTournaments.filter(tournament => tournament.stage === 2) %>
+      <% filteredTournaments2.forEach(tournament => { %>
+      <%- include('partials/tournament-tiles', {tournament: tournament}); %>
+      <% }) %>
+    </div>
+    <div class="stage-container-rightmost">
+      <% const filteredTournaments3 = foundTournaments.filter(tournament => tournament.stage === 3) %>
+      <% filteredTournaments3.forEach(tournament => { %>
+      <%- include('partials/tournament-tiles', {tournament: tournament}); %>
+      <% }) %>
+    </div>
+  </div>
+</body>
+
 </html>
