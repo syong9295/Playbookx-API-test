@@ -3,31 +3,46 @@
   <head>
     <meta charset="utf-8">
     <title>Tournament Bracket</title>
+    <!-- the 'html-pdf' package does not support external CSS, so internal CSS is used -->
     <style>
       .main-container {
         display: -webkit-flex;
         -webkit-justify-content: space-between;
         margin: 5rem;
-        border: 1px solid black;
+        /* border: 1px solid black; */
       }
-      .stage-container {
-        border: 1px solid red;
+      .stage-container-leftmost {
+        display: -webkit-flex;
+        -webkit-flex-direction: column;
+        /* border: 1px solid red; */
+      }
+      .stage-container-middle {
+        display: -webkit-flex;
+        -webkit-flex-direction: column;
+        -webkit-justify-content: space-around;
+        /* border: 1px solid red; */
+      }
+      .stage-container-rightmost {
+        display: -webkit-flex;
+        -webkit-flex-direction: column;
+        -webkit-justify-content: center;
+        /* border: 1px solid red; */
       }
       .full-round-container {
-        margin: 2rem 0;
+        margin: 1.25rem 0;
       }
       .half-round-container {
         display: -webkit-flex;
         -webkit-flex-direction: row;
         -webkit-align-content: stretch;
-        border: 0.1px solid #494b50;
+        border: 1px solid #494b50;
       }
       .player-info {
         display: -webkit-flex;
         -webkit-justify-content: flex-start;
         -webkit-align-items: center;
         background-color: #57595e;
-        width: 15rem;
+        width: 17.5rem;
       }
       .player-score-lose {
         display: -webkit-flex;
@@ -60,8 +75,9 @@
   </head>
   <body>
     <div class="main-container">
-      <div class="stage-container">
-        <% foundTournaments.forEach(tournament => { %>
+      <div class="stage-container-leftmost">
+        <% const filteredTournaments1 = foundTournaments.filter(tournament => tournament.stage === 1) %>
+        <% filteredTournaments1.forEach(tournament => { %>
 
           <div class="full-round-container">
 
@@ -85,11 +101,57 @@
 
         <% }) %>
       </div>
-      <div class="inner-container">
-        <p>i am span2</p>
+      <div class="stage-container-middle">
+        <% const filteredTournaments2 = foundTournaments.filter(tournament => tournament.stage === 2) %>
+        <% filteredTournaments2.forEach(tournament => { %>
+
+          <div class="full-round-container">
+
+            <div class="half-round-container">
+              <div class="player-info">
+                <img class="profile-img" src="<%= tournament.playerInfo[0].profileImg %>" alt="image" />
+                <p class="player-name"><%= tournament.playerInfo[0].name %></p>
+              </div>
+              <p class="player-score-lose"><%= tournament.playerInfo[0].score %></p>
+            </div>
+
+            <div class="half-round-container">
+              <div class="player-info">
+                <img class="profile-img" src="<%= tournament.playerInfo[1].profileImg %>" alt="image" />
+                <p class="player-name"><%= tournament.playerInfo[1].name %></p>
+              </div>
+              <p class="player-score-win"><%= tournament.playerInfo[1].score %></p>
+            </div>
+
+          </div>
+
+        <% }) %>
       </div>
-      <div class="inner-container">
-        <p>i am span3</p>
+      <div class="stage-container-rightmost">
+        <% const filteredTournaments3 = foundTournaments.filter(tournament => tournament.stage === 3) %>
+        <% filteredTournaments3.forEach(tournament => { %>
+
+          <div class="full-round-container">
+
+            <div class="half-round-container">
+              <div class="player-info">
+                <img class="profile-img" src="<%= tournament.playerInfo[0].profileImg %>" alt="image" />
+                <p class="player-name"><%= tournament.playerInfo[0].name %></p>
+              </div>
+              <p class="player-score-lose"><%= tournament.playerInfo[0].score %></p>
+            </div>
+
+            <div class="half-round-container">
+              <div class="player-info">
+                <img class="profile-img" src="<%= tournament.playerInfo[1].profileImg %>" alt="image" />
+                <p class="player-name"><%= tournament.playerInfo[1].name %></p>
+              </div>
+              <p class="player-score-win"><%= tournament.playerInfo[1].score %></p>
+            </div>
+
+          </div>
+
+        <% }) %>
       </div>
     </div>
   </body>

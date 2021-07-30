@@ -5,7 +5,6 @@ const pdf = require("html-pdf");
 const path = require("path");
 const mongoose = require('mongoose');
 const uniqueValidator = require('mongoose-unique-validator');
-
 const {
   Schema
 } = mongoose;
@@ -23,6 +22,7 @@ app.use(express.static('/public'));
 
 // create new database called 'tournamentDB' if it does not already exist.
 mongoose.connect('mongodb://localhost:27017/tournamentDB', {
+  useCreateIndex: true,
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
@@ -263,8 +263,8 @@ app.get('/download', function(req, res) {
           res.send(err);
         } else {
           let options = {
-            "height": "11.25in",
-            "width": "8.5in",
+            "height": "6.75in",
+            "width": "10.5in",
           };
           pdf.create(data, options).toFile("tournament.pdf", function(err, data) {
             if (err) {
