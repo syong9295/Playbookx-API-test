@@ -34,3 +34,7 @@ Once you have run `node app.js`, open your browser and try typing the following 
 | `http://localhost:3000/tournaments/round/<round>` | access the particular data with in specific round |
 | `http://localhost:3000/tournaments/stage/<stage>` | access all sample data in that specific stage |
 | `http://localhost:3000/tournaments/download` | download the formatted tournament bracket in pdf format |
+
+*remember to replace <round_id\>, <round\> or <stage\> with actual round_id, round number or stage number which can be found by accessing `http://localhost:3000/tournaments`
+
+*a round is when two players fights against each other, and stage of 1 represents Quarterfinal rounds, 2 represents Semifinal rounds, and 3 represents Final rounds.
