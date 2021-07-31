@@ -242,7 +242,7 @@ app.get('/tournaments/stage/:stageNo', function(req, res) {
 });
 
 // send user a pdf containing formatted tournament bracket image based on the dummy data
-app.get('/download', function(req, res) {
+app.get('/tournaments/download', function(req, res) {
 
   Tournament.find(function(err, foundTournaments) {
     if (err) {
