@@ -253,8 +253,10 @@ app.get('/tournaments/download', function(req, res) {
           res.send(err);
         } else {
           let options = {
-            "height": "6.75in",
-            "width": "10.5in",
+            // "height": "6.75in",
+            // "width": "10.5in",
+            "height": "600px",
+            "width" : "1050px",
           };
           pdf.create(data, options).toFile("tournament.pdf", function(err, data) {
             if (err) {
